@@ -55,6 +55,37 @@ public class ContatoDao {
 		}
 	}
 
+	public List<Contato> getBusca(){
+		String sql = "SELECT * FROM contatos";
+		
+		try{
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			//prepara o statement
+			ResultSet rs = stmt.executeQuery();
+			//instancia um Result Set e executa a query
+			List<Contato> contatos = new ArrayList<Contato>();
+			//instancia uma Lista do tipo Contato
+			while(rs.next()){
+				Contato contato = new Contato();
+				contato.setNome(rs.getString("nome"));
+				contato.setEmail(rs.getString("email"));
+				contato.setEndereco(rs.getString("endereco"));
+				//enquanto houver conteúdo no Result Set, vai preenchendo na lista
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("dataNascimento"));
+				contato.setDataNasc(data);
+				contatos.add(contato);
+				//depois que todos os campos de contato forem preenchidos, adiciona na Lista
+			}
+		rs.close();
+		stmt.close();
+		//fecha Result Set e o Statement
+		return contatos;
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public List<Contato> busca(){
 		String sql = "SELECT * FROM contatos";
 		
