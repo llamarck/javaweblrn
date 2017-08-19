@@ -95,7 +95,7 @@ public class ContatoDao {
 			ResultSet rs = stmt.executeQuery();
 			//instancia um Result Set e executa a query
 			List<Contato> contatos = new ArrayList<Contato>();
-			//instancia uma Lista do tipo Contato
+			//instancia uma Lista do tipo Contatos
 			while(rs.next()){
 				Contato contato = new Contato();
 				contato.setNome(rs.getString("nome"));
