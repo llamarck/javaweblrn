@@ -48,7 +48,7 @@ public class ControllerAddC extends HttpServlet {
 		ContatoDao dao = new ContatoDao();
 		dao.adiciona(contato);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/contato-adicionado.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("contato-adicionado.jsp");
 		rd.forward(request, response);
 	}
 

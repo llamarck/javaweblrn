@@ -3,15 +3,16 @@ package br.com.base.modelo;
 import java.util.Calendar;
 
 public class Contato {
-	private long id;
+	private int id;
 	private String nome;
 	private String email;
 	private String endereco;
 	private Calendar dataNasc;
-	public long getId() {
+	
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getNome() {

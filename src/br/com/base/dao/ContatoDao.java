@@ -15,9 +15,16 @@ import br.com.base.modelo.Contato;
 public class ContatoDao {
 	private Connection connection;
 	
+	public ContatoDao(Connection connection){
+		this.connection = new ConnectionFactory().getConnection();
+	}
+	//Este é o construtor com Filters
+	
 	public ContatoDao(){
 		this.connection = new ConnectionFactory().getConnection();
 	}
+	//Esta é a forma antiga, mas não é a ideal porque se usarmos vários métodos de vários DAOs, acabamos abrindo várias conexões paralelas
+	
 	
 	public void adiciona(Contato contato){
 		String sql = "INSERT INTO contatos (nome,email,endereco,dataNascimento) values (?,?,?,?)";
@@ -47,7 +54,7 @@ public class ContatoDao {
 			stmt.setString(2, contato.getEmail());
 			stmt.setString(3, contato.getEndereco());
 			stmt.setDate(4, new Date(contato.getDataNasc().getTimeInMillis()));
-			stmt.setLong(5, contato.getId());
+			stmt.setInt(5, contato.getId());
 			stmt.execute();
 			stmt.close();
 		}catch(SQLException e){
@@ -67,6 +74,7 @@ public class ContatoDao {
 			//instancia uma Lista do tipo Contato
 			while(rs.next()){
 				Contato contato = new Contato();
+				contato.setId(rs.getInt("id"));
 				contato.setNome(rs.getString("nome"));
 				contato.setEmail(rs.getString("email"));
 				contato.setEndereco(rs.getString("endereco"));
@@ -98,6 +106,7 @@ public class ContatoDao {
 			//instancia uma Lista do tipo Contatos
 			while(rs.next()){
 				Contato contato = new Contato();
+				contato.setId(rs.getInt("id"));
 				contato.setNome(rs.getString("nome"));
 				contato.setEmail(rs.getString("email"));
 				contato.setEndereco(rs.getString("endereco"));
@@ -126,6 +135,7 @@ public class ContatoDao {
 			ResultSet rs = stmt.executeQuery();
 			Contato contato = new Contato();
 			while(rs.next()){
+				contato.setId(rs.getInt("id"));
 				contato.setNome(rs.getString("nome"));
 				contato.setEmail(rs.getString("email"));
 				contato.setEndereco(rs.getString("endereco"));
